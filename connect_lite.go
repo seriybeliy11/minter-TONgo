@@ -95,7 +95,7 @@ func getContractData(collectionOwnerAddr, royaltyAddr *address.Address) *cell.Ce
 	collectionContentCell, _ := collectionContent.ContentCell()
 
 	// prefix for NFTs data
-	uri := "https://harlequin-decent-hoverfly-340.mypinata.cloud/ipfs/QmUYXMgu6jXEcVcZpSXxYv6LWtbz6PcaTBVZzVuaiqpZnm/"
+	uri := "папка с метаданными"
 	commonContentCell := cell.BeginCell().MustStoreStringSnake(uri).EndCell()
 
 	contentRef := cell.BeginCell().
