@@ -9,6 +9,7 @@ import (
 	"github.com/xssnick/tonutils-go/tvm/cell"
 	"log"
 	"strings"
+
 	"github.com/xssnick/tonutils-go/liteclient"
 	"github.com/xssnick/tonutils-go/tlb"
 	"github.com/xssnick/tonutils-go/ton"
@@ -18,13 +19,11 @@ import (
 func main() {
 	client := liteclient.NewConnectionPool()
 
-	// connect to mainnet lite server
-	err := client.AddConnection(context.Background(), "135.181.140.212:13206", "K0t3+IWLOXHYMvMcrGZDPs+pn58a17LFbnXoQkKc2xw=")
+	err := client.AddConnection(context.Background(), "5.9.10.15:48014", "3XO67K/qi+gu3T9v8G2hx1yNmWZhccL3O7SoosFo8G0=")
 	if err != nil {
 		panic(err)
 	}
 
-	// initialize ton api lite connection wrapper
 	api := ton.NewAPIClient(client).WithRetry()
 	w := getWallet(api)
 
@@ -43,7 +42,7 @@ func main() {
 }
 
 func getWallet(api ton.APIClientWrapped) *wallet.Wallet {
-	words := strings.Split("", " ")
+	words := strings.Split("сиды", " ")
 	w, err := wallet.FromSeed(api, words, wallet.V3)
 	if err != nil {
 		panic(err)
@@ -85,17 +84,17 @@ func getContractData(collectionOwnerAddr, royaltyAddr *address.Address) *cell.Ce
 	//           = Storage;
 
 	royalty := cell.BeginCell().
-		MustStoreUInt(0, 16). // 5% royalty
+		MustStoreUInt(1, 16). // 5% royalty
 		MustStoreUInt(1000, 16).
 		MustStoreAddr(royaltyAddr).
 		EndCell()
 
 	// collection data
-	collectionContent := nft.ContentOffchain{URI: "https://harlequin-decent-hoverfly-340.mypinata.cloud/ipfs/QmdZP1UYxHgNLB8f4fgyaxQzsagPqky3psQxcfLQx4iGWr"}
+	collectionContent := nft.ContentOffchain{URI: "ссылка_на_collection_json"}
 	collectionContentCell, _ := collectionContent.ContentCell()
 
 	// prefix for NFTs data
-	uri := "папка с метаданными"
+	uri := "папка_с_метаданными"
 	commonContentCell := cell.BeginCell().MustStoreStringSnake(uri).EndCell()
 
 	contentRef := cell.BeginCell().
